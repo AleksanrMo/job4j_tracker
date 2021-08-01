@@ -17,13 +17,19 @@ public class Error {
     }
 
     public void printInfo() {
-        System.out.println(active + " " + status + " " + massage);
+        System.out.println(active);
+        System.out.println(status);
+        System.out.println(massage);
     }
 
     public static void main(String[] args) {
-        Error first = new Error(true, 1, "Ошибка в очереди на обработку");
-        Error second = new Error(true, 2, "Ошибка исправляется");
+        Error first = new Error(true, 1, "ошибка в очереди на обработку");
+        Error second = new Error(true, 2, "ошибка в очереди на обработку");
         Error third =  new Error();
-
+        first.printInfo();
+        System.out.println();
+        second.printInfo();
+        System.out.println();
+        third.printInfo();
     }
 }
