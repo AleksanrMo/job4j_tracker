@@ -9,16 +9,17 @@ public class Battery {
     }
 
     public void exchange(Battery another) {
-        this.charge = this.charge - another.charge;
-        another.charge = this.charge;
+        another.charge = this.charge + another.charge;
+        this.charge = 0;
     }
 
     public static void main(String[] args) {
-        Battery percentOfCharge = new Battery(100);
-        Battery percentOfDischarge = new Battery(30);
-        System.out.println("Charge of battery is complete: " + percentOfCharge.charge + "%");
-        System.out.println("Battery discharge minus: " + percentOfDischarge.charge + "%");
-        percentOfCharge.exchange(percentOfDischarge);
-        System.out.println("Total remains: " + percentOfDischarge.charge + "%");
+        Battery first = new Battery(60);
+        Battery second = new Battery(30);
+        System.out.println("Charge of first battery is - " + first.charge + "%");
+        System.out.println("Charge of second battery is -  " + second.charge + "%");
+        first.exchange(second);
+        System.out.println("After exchange of energy: first battery - " + first.charge + "%"
+                           + " , second battery - " + second.charge + "%");
     }
 }
