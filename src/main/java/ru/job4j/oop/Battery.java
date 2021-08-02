@@ -8,9 +8,9 @@ public class Battery {
         this.charge = size;
     }
 
-    public void levelOfCharge(Battery another) {
+    public void exchange(Battery another) {
         this.charge = this.charge - another.charge;
-        another.charge = 0;
+        another.charge = this.charge;
     }
 
     public static void main(String[] args) {
@@ -18,7 +18,7 @@ public class Battery {
         Battery percentOfDischarge = new Battery(30);
         System.out.println("Charge of battery is complete: " + percentOfCharge.charge + "%");
         System.out.println("Battery discharge minus: " + percentOfDischarge.charge + "%");
-        percentOfCharge.levelOfCharge(percentOfDischarge);
-        System.out.println("Total remains: " + percentOfCharge.charge + "%");
+        percentOfCharge.exchange(percentOfDischarge);
+        System.out.println("Total remains: " + percentOfDischarge.charge + "%");
     }
 }
