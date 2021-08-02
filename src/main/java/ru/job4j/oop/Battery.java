@@ -20,6 +20,6 @@ public class Battery {
         System.out.println("Charge of second battery is -  " + second.charge + "%");
         first.exchange(second);
         System.out.println("After exchange of energy: first battery - " + first.charge + "%"
-                           + " , second battery - " + second.charge + "%");
+                            + " , second battery - " + second.charge + "%");
     }
 }
