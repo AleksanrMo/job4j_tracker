@@ -38,8 +38,8 @@ public class Tracker {
                 test[sum] = items[i];
                 sum++;
             }
-          test =  Arrays.copyOf(items, sum);
         }
+        test =  Arrays.copyOf(items, sum);
         return test;
     }
 }
