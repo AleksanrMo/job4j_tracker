@@ -47,12 +47,14 @@ public class Tracker {
 
     public Item[] findByName(String key) {
         int sum = 0;
+        Item[] test = new Item[size];
         for (int i = 0; i < size; i++) {
             if (items[i].getName().equals(key)) {
+                test[sum] = items[i];
                 sum++;
             }
         }
-        return  Arrays.copyOf(items, sum);
+        return  Arrays.copyOf(test, sum);
     }
 
     public boolean delete(int id) {
