@@ -14,7 +14,6 @@ public class FindEl {
             throw new ElementNotFoundException("Not found key in this array.");
         }
         return  rsl;
-
     }
 
     public static void main(String[] args)  {
