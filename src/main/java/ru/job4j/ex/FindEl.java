@@ -22,6 +22,7 @@ public class FindEl {
         indexOf(str, "three");
        } catch (ElementNotFoundException e) {
            e.printStackTrace();
+
        }
     }
 }
