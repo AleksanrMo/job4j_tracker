@@ -4,15 +4,14 @@ public class UserStore {
 
     @SuppressWarnings("checkstyle:SimplifyBooleanExpression")
     public static User findUser(User[] users, String login) throws UserNotFoundException {
-        boolean idea = true;
+
         for (User user : users) {
-            if (!user.getUserName().equals(login)) {
-                throw new UserNotFoundException("Пользователь не найден.");
-            } else if (user.getUserName().equals(login)) {
-                idea = user.isValid();
+            if (user.getUserName().equals(login)) {
+                return user;
             }
+            throw new UserNotFoundException("Пользователь не найден.");
         }
-      return new User(login, idea);
+      return new User(login, true);
     }
 
     public static boolean validate(User user) throws UserInvalidException {
