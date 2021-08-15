@@ -11,7 +11,7 @@ public class UserStore {
             }
             throw new UserNotFoundException("Пользователь не найден.");
         }
-      return new User(login, true);
+      return null;
     }
 
     public static boolean validate(User user) throws UserInvalidException {
