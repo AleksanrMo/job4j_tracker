@@ -36,9 +36,12 @@ public class ValidateInputTest {
                 new String[] {"1", "0", "2"}
         );
         ValidateInput input = new ValidateInput(out, in);
-        int selected = input.askInt("Enter menu:");
+        int selected = 0;
+        for (int i = 0; i < 3; i++) {
+           selected = input.askInt("Enter menu:");
+        }
+        assertThat(selected, is(2));
 
-        assertThat(selected, is(1,0,2));
     }
 
     @Test
@@ -46,7 +49,7 @@ public class ValidateInputTest {
     public void whenInputMultipleIsNegative() {  // не знаю как сделать
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[] {"1", "0", "-2"}
+                new String[] {"-2"}
         );
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
