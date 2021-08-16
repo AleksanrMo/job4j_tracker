@@ -2,16 +2,13 @@ package ru.job4j.ex;
 
 public class UserStore {
 
-    @SuppressWarnings("checkstyle:SimplifyBooleanExpression")
     public static User findUser(User[] users, String login) throws UserNotFoundException {
-
         for (User user : users) {
             if (user.getUserName().equals(login)) {
                 return user;
             }
-            throw new UserNotFoundException("Пользователь не найден.");
         }
-      return null;
+        throw new UserNotFoundException("Пользователь не найден.");
     }
 
     public static boolean validate(User user) throws UserInvalidException {
