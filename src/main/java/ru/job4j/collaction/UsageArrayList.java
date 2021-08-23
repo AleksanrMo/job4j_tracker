@@ -10,6 +10,7 @@ public class UsageArrayList {
         firstArray.add("Petr");
         for (Object value: firstArray) {
             System.out.println(value);
+
         }
     }
 }
