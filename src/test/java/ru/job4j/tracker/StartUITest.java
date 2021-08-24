@@ -10,7 +10,7 @@ import java.util.List;
 
 public class StartUITest {
 
-   /* @Test
+    @Test
     public void whenCreateItem() {
         Output out = new StubOutput();
         Input in = new StubInput(
@@ -21,8 +21,8 @@ public class StartUITest {
                 new CreateAction(out),
                 new ExitProgram());
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findAll()[0].getName(), is("Item name"));
-    }*/
+        assertThat(tracker.findAll().get(0).getName(), is("Item name"));
+    }
 
     @Test
     public void whenReplaceItem() {

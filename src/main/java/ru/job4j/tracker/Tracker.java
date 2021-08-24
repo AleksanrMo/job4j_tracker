@@ -44,11 +44,7 @@ public class Tracker {
     }
 
     public List<Item> findAll() {
-        List<Item> list = new ArrayList<>();
-        for (Item item : items) {
-            list.add(item);
-        }
-        return list;
+        return List.copyOf(items);
     }
 
     public List<Item> findByName(String key) {
