@@ -5,6 +5,6 @@ import java.util.Comparator;
 public class ItemCompareRevers implements Comparator<Item> {
 
     public int compare(Item one, Item two) {
-        return two.getId() - one.getId();
+        return Integer.compare(two.getId(), one.getId());
     }
 }
