@@ -30,7 +30,6 @@ public class BankService {
                 user =  key;
                 break;
             }
-
         }
         return user;
     }
@@ -45,7 +44,6 @@ public class BankService {
                 }
             }
         }
-
         return null;
     }
 
