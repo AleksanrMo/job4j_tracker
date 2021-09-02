@@ -13,10 +13,8 @@ public class Departments {
         for (String value : deps) {
             String start = "";
             for (String el : value.split("/")) {
-                start = ((start + "/" + el));
-               String[] strings = start.split("/", 2);
-               String rsl = strings[1];
-               tmp.add(rsl);
+                start = start.equals("") ?  el :  (start + "/" + el);
+               tmp.add(start);
             }
         }
 
