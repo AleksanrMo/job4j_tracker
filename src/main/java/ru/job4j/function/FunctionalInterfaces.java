@@ -10,7 +10,7 @@ import java.util.function.*;
     public class FunctionalInterfaces {
         public static void main(String[] args) {
             Map<Integer, String> map = new HashMap<>();
-            BiConsumer<Integer, String> biCon = (i1, s1) -> new HashMap<>(map);
+            BiConsumer<Integer, String> biCon = (i1, s1) -> map.put(i1, s1);
 
            biCon.accept(1, "one");
            biCon.accept(2, "two");
