@@ -11,5 +11,6 @@ public class LambdaUsage {
         String a = "привет!";
         String b = "пока!";
         System.out.println(comparator.compare(a, b));
+
     }
 }
