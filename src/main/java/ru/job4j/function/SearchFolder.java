@@ -7,13 +7,13 @@ import java.util.function.Predicate;
 public class SearchFolder {
 
     public static List<Folder> filter(List<Folder> list, Predicate<Folder> pred) {
-        List<Folder> list1 = new ArrayList<>();
+        List<Folder> rsl = new ArrayList<>();
         for (Folder f: list) {
           if (pred.test(f)) {
-              list1.add(f);
+              rsl.add(f);
 
             }
         }
-        return list1;
+        return rsl;
     }
 }
