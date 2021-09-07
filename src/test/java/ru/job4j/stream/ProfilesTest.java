@@ -32,4 +32,19 @@ public class ProfilesTest {
                 new Address("Novosibirsk", "Pushkina", 12, 128));
         assertThat(test.collect(list), is(expected));
     }
+
+    @Test
+    public void whenAdd2Elements3() {
+        Profiles test = new Profiles();
+        List<Profile> list = Arrays.asList(new Profile(
+                        new Address("Barnaul", "Lenina", 43, 54)),
+                new Profile(new Address("Novosibirsk", "Pushkina", 12, 128)),
+                new Profile(new Address("Barnaul", "Nikinina", 1, 23)),
+        new Profile(new Address("Barnaul", "Lenina", 43, 54)));
+        List<Address> expected = List.of(new Address(
+                        "Barnaul", "Lenina", 43, 54),
+                new Address("Barnaul", "Nikinina", 1, 23),
+                new Address("Novosibirsk", "Pushkina", 12, 128));
+        assertThat(test.collect(list), is(expected));
+    }
 }
