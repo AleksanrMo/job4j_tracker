@@ -1,16 +1,14 @@
 package ru.job4j.stream;
 
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Matrix {
 
     public List<Integer> matrix(Integer[][] mat) {
-        return Arrays
-                .stream(mat)
-                .flatMap(Arrays::stream)
+        return Stream.of(mat)
+                .flatMap(Stream::of)
                 .collect(Collectors.toList());
     }
 }
