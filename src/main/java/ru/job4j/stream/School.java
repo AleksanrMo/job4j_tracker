@@ -13,8 +13,7 @@ public class School {
 
     public Map<String, Integer> change(List<Student> students) {
         return students.stream()
-                .distinct()
-                .collect(Collectors.toConcurrentMap(Student::getSurname,
-                        Student::getScore));
+                .collect(Collectors.toMap(Student::getSurname,
+                        Student::getScore, (existing, replacement) -> existing));
     }
 }
