@@ -2,15 +2,14 @@ package ru.job4j.stream;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class SchoolTest {
+
     @Test
     public void whenCollectClassA() {
         List<Student> students = List.of(
@@ -63,6 +62,23 @@ public class SchoolTest {
         expected.add(new Student(10, "Surname1"));
         expected.add(new Student(30, "Surname3"));
         expected.add(new Student(40, "Surname4"));
+        assertThat(rsl, is(expected));
+    }
+
+    @Test
+    public void whenCreateMap() {
+        School school = new School();
+        List<Student> students = Arrays.asList(
+                new Student(20, "Aleksandr"),
+                new Student(30, "Evgeniy"),
+                new Student(60, "Andrey"),
+                new Student(20, "Aleksandr")
+        );
+        Map<String, Integer> rsl = school.change(students);
+        Map<String, Integer> expected = new HashMap<>();
+        expected.put("Aleksandr", 20);
+        expected.put("Evgeniy", 30);
+        expected.put("Andrey", 60);
         assertThat(rsl, is(expected));
     }
 }
