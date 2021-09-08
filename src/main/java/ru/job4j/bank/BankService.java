@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 /**
  * Класс описывает методы для работы банковского сервиса по добавлению клиентов в базу,
  * созданию новых счетов, переводов средст между счетами.
@@ -16,9 +18,11 @@ public class BankService {
 
     /**
      * Метод принимает на вход объект класса User и  добавляет его в HashMap users.
+     *
      * @param user
      */
     public void addUser(User user) {
+
         users.putIfAbsent(user, new ArrayList<>());
     }
 
@@ -27,6 +31,7 @@ public class BankService {
      * Находим клиента по номеру паспорта и получаем все его существующе аккауны в список.
      * Сравниваем принятый объект с существующими аккаунтами ,
      * если такого нет то добавляем его в список.
+     *
      * @param passport
      * @param account
      */
@@ -44,64 +49,64 @@ public class BankService {
      * Метод принимает на вход номер паспрта клиента.
      * Переберает циклом клиентов сравнивая их номера паспорта с  passport.
      * Возвращает клиента по паспорту если такой имеется в базе.
-     * @return Возвращает клиента по паспорту если такой имеется в базе.
-     * @param passport
      *
+     * @param passport
+     * @return Возвращает клиента по паспорту если такой имеется в базе.
      */
     public User findByPassport(String passport) {
-        User user = null;
-        for (User key: users.keySet()) {
-            if (key.getPassport().equals(passport)) {
-                user =  key;
-                break;
-            }
-        }
-        return user;
+        return users.keySet()
+                .stream()
+                .filter(e -> e.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
      * Метод принимает на вход паспорот и реквизиты.
      * По паспорту находим клиента.
      * Если такой имеется то ищем есть ли такой аккаунт с определенными реквизитами.
-     * @return Возвращает аккаунт клиента.
+     *
      * @param passport
      * @param requisite
+     * @return Возвращает аккаунт клиента.
      */
     public Account findByRequisite(String passport, String requisite) {
         User user = findByPassport(passport);
-        if (user != null)  {
-            List<Account> list = users.get(user);
-            for (Account account: list) {
-                if (account.getRequisite().equals(requisite)) {
-                    return account;
-                }
-            }
+        if (user != null) {
+            return users.get(user)
+                    .stream()
+                    .filter(e -> e.getRequisite().equals(requisite))
+                    .findFirst()
+                    .orElse(null);
         }
         return null;
     }
 
-    /**
-     * Метод принимает на вход паспорта и реквезиты двух аккаунтов
-     * и количество средств для преревода.
-     * Осуществляет преревод с первого  счета на другой если на первом хватает средств для преревода
-     * @return Возвращает результат опереции в виде true или false.
-     * @param srcPassport
-     * @param srcRequisite
-     * @param destPassport
-     * @param destRequisite
-     * @param amount
-     *
-     */
-    public boolean transferMoney(String srcPassport, String srcRequisite,
-                                 String destPassport, String destRequisite, double amount) {
-        boolean rsl = false;
-        Account account1 = findByRequisite(srcPassport, srcRequisite);
-        Account account2 = findByRequisite(destPassport, destRequisite);
-        if (account1 != null && account2 != null && account1.getBalance() >= amount) {
-            account1.setBalance(account1.getBalance() - amount);
-            account2.setBalance(account2.getBalance() + amount);
-            rsl = true;
+        /**
+         * Метод принимает на вход паспорта и реквезиты двух аккаунтов
+         * и количество средств для преревода.
+         * Осуществляет преревод с первого  счета на другой если на первом хватает средств для преревода
+         * @return Возвращает результат опереции в виде true или false.
+         * @param srcPassport
+         * @param srcRequisite
+         * @param destPassport
+         * @param destRequisite
+         * @param amount
+         *
+         */
+        public boolean transferMoney(String srcPassport, String srcRequisite,
+                                     String destPassport, String destRequisite,
+                                     double amount) {
+            boolean rsl = false;
+            Account account1 = findByRequisite(srcPassport, srcRequisite);
+            Account account2 = findByRequisite(destPassport, destRequisite);
+                if (account1 != null && account2 != null
+                        && account1.getBalance() >= amount) {
+                    account1.setBalance(account1.getBalance() - amount);
+                    account2.setBalance(account2.getBalance() + amount);
+                rsl = true;
+            }
+            return rsl;
         }
-        return rsl;
     }
-}
+
