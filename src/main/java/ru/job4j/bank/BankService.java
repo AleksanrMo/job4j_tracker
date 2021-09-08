@@ -85,7 +85,8 @@ public class BankService {
         /**
          * Метод принимает на вход паспорта и реквезиты двух аккаунтов
          * и количество средств для преревода.
-         * Осуществляет преревод с первого  счета на другой если на первом хватает средств для преревода
+         * Осуществляет преревод с первого  счета на другой
+         * если на первом хватает средств для преревода
          * @return Возвращает результат опереции в виде true или false.
          * @param srcPassport
          * @param srcRequisite
@@ -100,8 +101,7 @@ public class BankService {
             boolean rsl = false;
             Account account1 = findByRequisite(srcPassport, srcRequisite);
             Account account2 = findByRequisite(destPassport, destRequisite);
-                if (account1 != null && account2 != null
-                        && account1.getBalance() >= amount) {
+                if (account1 != null && account2 != null && account1.getBalance() >= amount) {
                     account1.setBalance(account1.getBalance() - amount);
                     account2.setBalance(account2.getBalance() + amount);
                 rsl = true;
