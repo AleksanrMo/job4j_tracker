@@ -30,7 +30,7 @@ public class ValidateInputTest {
     }
 
     @Test
-    public void whenInputMultipleTrue() {  // не знаю как сделать
+    public void whenInputMultipleTrue() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"1", "0", "2"}
@@ -46,7 +46,7 @@ public class ValidateInputTest {
 
     @Test
 
-    public void whenInputMultipleIsNegative() {  // не знаю как сделать
+    public void whenInputMultipleIsNegative() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"-2"}
