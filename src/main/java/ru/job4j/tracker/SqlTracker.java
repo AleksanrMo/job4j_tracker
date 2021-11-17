@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -40,9 +41,11 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        try (PreparedStatement  statement = cn.prepareStatement("insert into items(name) values(?)",
+        try (PreparedStatement  statement = cn.prepareStatement(
+                "insert into items(name, created) values(?, ?)",
                 Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
+            statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -90,7 +93,9 @@ public class SqlTracker implements Store {
                 while (resultSet.next()) {
                   list.add(new Item(
                           resultSet.getInt("id"),
-                          resultSet.getString("name")
+                          resultSet.getString("name"),
+                          resultSet.getTimestamp("created").toLocalDateTime()
+
                     ));
                 }
             }
@@ -110,7 +115,8 @@ public class SqlTracker implements Store {
                 while (resultSet.next()) {
                     list.add(new Item(
                             resultSet.getInt("id"),
-                            resultSet.getString("name")
+                            resultSet.getString("name"),
+                            resultSet.getTimestamp("created").toLocalDateTime()
                     ));
                 }
             }
@@ -130,7 +136,8 @@ public class SqlTracker implements Store {
                 while (resultSet.next()) {
                     item = new Item(
                             resultSet.getInt("id"),
-                            resultSet.getString("name")
+                            resultSet.getString("name"),
+                            resultSet.getTimestamp("created").toLocalDateTime()
                     );
                 }
             }

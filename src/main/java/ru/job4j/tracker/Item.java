@@ -23,7 +23,14 @@ public class Item {
         this.name = name;
     }
 
+    public Item(int id, String name, LocalDateTime created) {
+        this.id = id;
+        this.name = name;
+        this.created = created;
+    }
+
     public Item(LocalDateTime created) {
+
         this.created = created;
     }
 
