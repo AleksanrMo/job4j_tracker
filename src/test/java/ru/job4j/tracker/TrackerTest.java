@@ -12,7 +12,7 @@ import static org.hamcrest.core.IsNull.nullValue;
 public class TrackerTest {
     @Test
     public void whenTestFindById() {
-        MemTracker tracker = new MemTracker();
+        Store tracker = new MemTracker();
         Item bug = new Item("Bug");
         Item item = tracker.add(bug);
         Item result = tracker.findById(item.getId());
@@ -21,7 +21,7 @@ public class TrackerTest {
 
     @Test
     public void whenTestFindAll() {
-        MemTracker tracker = new MemTracker();
+        Store tracker = new MemTracker();
         Item first = new Item("First");
         Item second = new Item("Second");
         tracker.add(first);
@@ -32,7 +32,7 @@ public class TrackerTest {
 
     @Test
     public void whenTestFindByNameCheckArrayLength() {
-        MemTracker tracker = new MemTracker();
+        Store tracker = new MemTracker();
         Item first = new Item("First");
         Item second = new Item("Second");
         tracker.add(first);
@@ -46,7 +46,7 @@ public class TrackerTest {
 
     @Test
     public void whenTestFindByNameCheckSecondItemName() {
-        MemTracker tracker = new MemTracker();
+        Store tracker = new MemTracker();
         Item first = new Item("First");
         Item second = new Item("Second");
         tracker.add(first);
@@ -60,7 +60,7 @@ public class TrackerTest {
 
     @Test
     public void whenReplace() {
-        MemTracker tracker = new MemTracker();
+        Store tracker = new MemTracker();
         Item bug = new Item();
         bug.setName("Bug");
         tracker.add(bug);
@@ -73,7 +73,7 @@ public class TrackerTest {
 
     @Test
     public void whenDelete() {
-        MemTracker tracker = new MemTracker();
+        Store tracker = new MemTracker();
         Item bug = new Item();
         bug.setName("Bug");
         tracker.add(bug);
