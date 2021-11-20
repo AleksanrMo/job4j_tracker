@@ -97,8 +97,7 @@ public class SqlTrackerTest {
         tracker.add(item2);
         List<Item> rsl = tracker.findByName("item1");
         assertThat(rsl, is(List.of(item1)));
-
-    }
+     }
 
     @Test
     public void whenFindById() throws Exception {
