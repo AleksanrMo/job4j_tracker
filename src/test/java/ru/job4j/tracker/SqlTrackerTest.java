@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
+import static org.hamcrest.Matchers.is;
 
 import static org.junit.Assert.*;
 
@@ -36,25 +37,25 @@ public class SqlTrackerTest {
         }
     }
 
+    @After
+    public void wipeTable() throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement("delete from items")) {
+            statement.execute();
+
+        }
+    }
+
     @AfterClass
     public static void closeConnection() throws SQLException {
         connection.close();
     }
 
-    @After
-    public void wipeTable() throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement("delete from items")) {
-            statement.execute();
-        }
-    }
-
     @Test
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() throws SQLException {
-         SqlTracker tracker = new SqlTracker(connection);
+        SqlTracker tracker = new SqlTracker(connection);
         Item item = new Item("item");
         tracker.add(item);
-        assertTrue(item.getId() > 0);
-
+        assertThat(tracker.findById(item.getId()), is(item));
     }
 
     @Test
@@ -80,24 +81,23 @@ public class SqlTrackerTest {
     @Test
     public void whenFindAll() {
         SqlTracker tracker = new SqlTracker(connection);
-            tracker.add(new Item(0, "item1"));
-            tracker.add(new Item(0, "item2"));
-            List<Item> rsl = tracker.findAll();
-            for (int i = 0; i < rsl.size(); i++) {
-                assertEquals(String.format("item%d", (i + 1)), rsl.get(i).getName());
-            }
-     }
+        Item item1 = new Item("item1");
+        Item item2 = new Item("item2");
+        tracker.add(item1); tracker.add(item2);
+        List<Item> rsl = tracker.findAll();
+        assertThat(rsl, is(List.of(item1, item2)));
+    }
 
     @Test
     public void whenFindByName() throws Exception {
         SqlTracker tracker = new SqlTracker(connection);
-            tracker.add(new Item(0, "item"));
-            tracker.add(new Item(0, "item"));
-            List<Item> rsl = tracker.findByName("item");
-            assertEquals(2, rsl.size());
-            for (int i = 0; i < rsl.size(); i++) {
-                assertEquals("item", rsl.get(i).getName());
-            }
+        Item item1 = new Item("item1");
+        Item item2 = new Item("item2");
+        tracker.add(item1);
+        tracker.add(item2);
+        List<Item> rsl = tracker.findByName("item1");
+        assertThat(rsl, is(List.of(item1)));
+
     }
 
     @Test
