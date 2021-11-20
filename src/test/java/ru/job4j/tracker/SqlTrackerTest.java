@@ -108,7 +108,6 @@ public class SqlTrackerTest {
             Item rsl = tracker.findById(item.getId());
             assertEquals(rsl.getName(), item.getName());
         }
-
     }
 
 
