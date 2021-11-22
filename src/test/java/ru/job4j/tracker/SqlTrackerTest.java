@@ -61,7 +61,7 @@ public class SqlTrackerTest {
     @Test
     public void whenReplaced() throws SQLException {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item(0, "item");
+        Item item = new Item("item");
         tracker.add(item);
         item.setName("test");
         tracker.replace(item.getId(), item);
@@ -72,7 +72,7 @@ public class SqlTrackerTest {
     @Test
     public void whenDelete() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item(0, "Alex");
+        Item item = new Item("Alex");
         tracker.add(item);
         assertTrue(tracker.delete(item.getId()));
 
@@ -102,7 +102,7 @@ public class SqlTrackerTest {
     @Test
     public void whenFindById() throws Exception {
         SqlTracker tracker = new SqlTracker(connection);
-            Item item = new Item(0, "test");
+            Item item = new Item("test");
             tracker.add(item);
             Item rsl = tracker.findById(item.getId());
             assertEquals(rsl.getName(), item.getName());
