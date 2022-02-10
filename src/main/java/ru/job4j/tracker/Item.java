@@ -1,14 +1,18 @@
 package ru.job4j.tracker;
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
-import java.time.format.DateTimeFormatter;
 
+@Entity
+@Table(name = "item")
 public class Item {
-    private static final DateTimeFormatter FORMATTER
-            = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private LocalDateTime created = LocalDateTime.now();
+    private String description;
+    private Timestamp created;
 
     public Item() {
 
@@ -23,23 +27,32 @@ public class Item {
         this.name = name;
     }
 
-    public Item(int id, String name, LocalDateTime created) {
+    public Item(int id, String name, Timestamp created) {
         this.id = id;
+        this.name =  name;
+        this.created = created;
+    }
+
+    public Item(String name, String description, Timestamp created) {
         this.name = name;
+        this.description = description;
         this.created = created;
     }
 
-    public Item(LocalDateTime created) {
-
-        this.created = created;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public LocalDateTime getCreated() {
+    public Timestamp getCreated() {
         return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
     }
 
     public int getId() {
@@ -59,13 +72,13 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return id == item.id && Objects.equals(name, item.name)
-                && Objects.equals(created.withNano(0), item.created.withNano(0));
+        return id == item.id && Objects.equals(name, item.name);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, created);
+        return Objects.hash(id, name);
     }
 
     public String getName() {
@@ -78,10 +91,12 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" + "id=" + id
-                + ", name='" + name + '\''
-                + ", created=" + created.format(FORMATTER) + '}';
+        return "Item{"
+                +
+                "id=" + id
+                +
+                ", name='" + name + '\''
+                +
+                '}';
     }
-
 }
-
