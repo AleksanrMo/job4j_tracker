@@ -1,9 +1,7 @@
 package ru.job4j.tracker;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,6 +13,7 @@ import static org.hamcrest.Matchers.is;
 
 import static org.junit.Assert.*;
 
+@Ignore
 public class SqlTrackerTest {
 
      private  static Connection connection;
