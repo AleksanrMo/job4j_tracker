@@ -21,7 +21,6 @@ public class HibernateRun {
             } finally {
                 StandardServiceRegistryBuilder.destroy(registry);
             }
-
         }
 
         public static Item create(Item item, SessionFactory sf) {
