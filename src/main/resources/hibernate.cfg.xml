@@ -17,5 +17,6 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
         <mapping class="ru.job4j.tracker.Item" />
+
     </session-factory>
 </hibernate-configuration>

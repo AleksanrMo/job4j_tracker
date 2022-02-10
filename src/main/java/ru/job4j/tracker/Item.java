@@ -15,7 +15,6 @@ public class Item {
     private Timestamp created;
 
     public Item() {
-
     }
 
     public Item(String name) {
