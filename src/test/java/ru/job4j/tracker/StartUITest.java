@@ -1,9 +1,13 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+import org.mockito.Mockito;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 
 import java.util.Arrays;
 import java.util.List;
@@ -180,5 +184,45 @@ public class StartUITest {
                         + "0. Exit" + ln
                 )
         );
+    }
+
+    @Test
+    public void whenDeleteItemWithMock() {
+        Store tracker = new MemTracker();
+        Item item = tracker.add(new Item("Deleted item"));
+        Output out = new StubOutput();
+        Input in = mock(Input.class);
+        Mockito.when(in.askInt(any(String.class))).thenReturn(1);
+        DeleteItem delete = new DeleteItem(out);
+        delete.execute(in, tracker);
+        assertThat(tracker.findById(item.getId()), is(nullValue()));
+    }
+
+    @Test
+    public void whenFindByIdMock() {
+        Output out = new StubOutput();
+        Store tracker = new MemTracker();
+        Item item = tracker.add(new Item("Find item"));
+        Input in = mock(Input.class);
+        Mockito.when(in.askInt(any(String.class))).thenReturn(1);
+        FindByIdItem find = new FindByIdItem(out);
+        find.execute(in,  tracker);
+        assertThat((out.toString()), is("=== Find item by id ====" + System.lineSeparator()
+                + item + System.lineSeparator()));
+
+    }
+
+    @Test
+    public void whenFindByNameMock() {
+        Output out = new StubOutput();
+        Store tracker = new MemTracker();
+        FindByNameItem nameItem =  new FindByNameItem(out);
+        Item item = tracker.add(new Item("Name"));
+        Input in = mock(Input.class);
+        Mockito.when(in.askStr(any(String.class))).thenReturn("Name");
+        nameItem.execute(in, tracker);
+        assertThat(out.toString(), is("=== Find items by name ===="
+                + System.lineSeparator()
+                + item + System.lineSeparator()));
     }
 }
