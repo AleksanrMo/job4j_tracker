@@ -1,5 +1,6 @@
-create table items (
+create table item (
     id serial primary key,
-    name varchar(2000),
+    name varchar(255),
+    description varchar(255),
     created timestamp
 );

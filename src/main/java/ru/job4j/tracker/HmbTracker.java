@@ -27,35 +27,30 @@ public class HmbTracker implements Store, AutoCloseable {
 
     @Override
     public boolean replace(int id, Item item) {
-        boolean rsl = false;
         Session session = sf.openSession();
         session.beginTransaction();
-        Item i = session.get(Item.class, id);
-        if (i != null) {
-            i.setName(item.getName());
-            i.setCreated(item.getCreated());
-            i.setDescription(item.getDescription());
-            session.update(i);
+        int result = session.createQuery("update Item set name = :name, description  = :descr,"
+                        + "  created  = :create where id = :param")
+                .setParameter("name", item.getName())
+                .setParameter("descr", item.getDescription())
+                .setParameter("create", item.getCreated())
+                .setParameter("param", id)
+                .executeUpdate();
             session.getTransaction().commit();
             session.close();
-            rsl = true;
-        }
-        return rsl;
+            return result != 0;
     }
 
     @Override
     public boolean delete(int id) {
-        boolean rsl = false;
         Session session = sf.openSession();
         session.beginTransaction();
-        Item i = session.get(Item.class, id);
-        if (i != null) {
-            session.delete(i);
+            int result = session.createQuery("delete from Item  where id = :param")
+                    .setParameter("param", id)
+                    .executeUpdate();
             session.getTransaction().commit();
             session.close();
-            rsl = true;
-        }
-        return rsl;
+        return result != 0;
     }
 
     @Override
